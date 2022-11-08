@@ -1,0 +1,19 @@
+#ifndef BV_H_INCLUDED
+#define BV_H_INCLUDED
+#include <stdio.h>
+typedef struct
+{
+    int ID_Br;
+    int ID_Ag;
+    char Adresse[10];
+    int Nbr_Salles;
+    int Nbr_Obs;
+    int Nbr_elec;
+}BureauDeVote;
+int modifier(char * bureau, int ID,BureauDeVote temp);
+int supprimer(char * bureau, int ID);
+BureauDeVote chercher(char * bureau, int ID);
+int ajouter(char * bureau, BureauDeVote bv );
+
+
+#endif // BV_H_INCLUDED

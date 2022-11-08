@@ -1,0 +1,90 @@
+#include "BV.h"
+
+int modifier(char * bureau, int ID,BureauDeVote temp)
+{
+   int ok=0;
+   BureauDeVote bv;
+   FILE * f;
+   FILE * f1;
+   f=fopen("bureau.txt", "r");
+   f1=fopen("temp.txt","w");
+   if((f!=NULL)&&(f1!=NULL))
+   {
+       while (fscanf(f,"%d %d %s %d %d %d\n",&bv.ID_Br, &bv.ID_Ag, bv.Adresse, &bv.Nbr_Salles, &bv.Nbr_Obs, &bv.Nbr_elec)!=EOF)
+       {
+           if(bv.ID_Br==ID)
+           {
+               fprintf(f1,"%d %d %s %d %d %d\n",temp.ID_Br, temp.ID_Ag, temp.Adresse, temp.Nbr_Salles, temp.Nbr_Obs, temp.Nbr_elec );
+               ok=1;
+           }
+           else
+            fprintf(f1,"%d %d %s %d %d %d\n",bv.ID_Br, bv.ID_Ag, bv.Adresse, bv.Nbr_Salles, bv.Nbr_Obs, bv.Nbr_elec);
+       }
+
+   }
+   fclose(f);
+   fclose(f1);
+   remove(bureau);
+   rename("temp.txt",bureau);
+   return ok;
+}
+int supprimer(char * bureau, int ID)
+{
+    int ok=0;
+    BureauDeVote bv;
+    FILE * f=fopen("bureau.txt", "r");
+    FILE * f1=fopen("temp.txt", "w");
+    if(f!=NULL && f1!=NULL)
+    {
+        while (fscanf(f,"%d %d %s %d %d %d\n",&bv.ID_Br, &bv.ID_Ag, bv.Adresse, &bv.Nbr_Salles, &bv.Nbr_Obs, &bv.Nbr_elec)!=EOF)
+        {
+            if(bv.ID_Br==ID)
+            {
+               ok=1;
+            }
+
+            else
+                fprintf(f1,"%d %d %s %d %d %d\n",bv.ID_Br, bv.ID_Ag, bv.Adresse, bv.Nbr_Salles, bv.Nbr_Obs, bv.Nbr_elec);
+        }
+    }
+    fclose(f);
+    fclose(f1);
+    remove(bureau);
+    rename("temp.txt", bureau);
+    return ok;
+}
+BureauDeVote chercher(char * bureau, int ID)
+{
+    BureauDeVote bv;
+    int ok=0;
+    FILE * f=fopen("burea.txt", "r");
+    if(f!=NULL)
+    {
+        while(ok==0&& fscanf(f,"%d %d %s %d %d %d\n",&bv.ID_Br, &bv.ID_Ag, bv.Adresse, &bv.Nbr_Salles, &bv.Nbr_Obs, &bv.Nbr_elec)!=EOF)
+        {
+            if(bv.ID_Br== ID)
+            {
+                ok=1;
+            }
+
+        }
+    }
+    fclose(f);
+    if(ok==0)
+        bv.ID_Br=-1;
+    return bv;
+
+}
+int ajouter(char * bureau, BureauDeVote bv )
+{
+    FILE * f=fopen("bureau.txt", "a");
+    if(f!=NULL)
+    {
+        fprintf(f,"%d %d %s %d %d %d\n",bv.ID_Br, bv.ID_Ag, bv.Adresse, bv.Nbr_Salles, bv.Nbr_Obs, bv.Nbr_elec);
+        fclose(f);
+        return 1;
+    }
+    else
+     return 0;
+}
+

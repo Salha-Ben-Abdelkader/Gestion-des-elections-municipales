@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+#include "BV.h"
+int main()
+{
+ BureauDeVote bv1={1111,0000,"tunis",2,3,100},bv2={2222,1111,"menzah",3,2,500};
+ int test=ajouter("bureau.txt", bv1);
+ if(test==1)
+ printf("\n ajout de bureau avec succés");
+ else
+ printf("\n echec ajout");
+ test=modifier("bureau.txt",1111,bv2 );
+ if(test==1)
+ printf("\n Modification de bureau avec succ s");
+ else
+ printf("\nechec Modification");
+ test=supprimer("bureau.txt",1111 );
+ if(test==1)
+ printf("\n Suppression de point avec succ s");
+ else
+ printf("\nechec Suppression");
+ bv1=chercher("bureau.txt",1111 );
+ if(bv1.ID_Br==-1)
+ printf("introuvable");
+ return 0;
+}
